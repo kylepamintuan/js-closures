@@ -25,15 +25,34 @@ function addition(num1) {
         return num1 + num2;
     };
 }
-
 const threePlus = addition(3);
 const tenPlus = addition(10);
-
 console.log(threePlus(3));
 console.log(tenPlus(5));
 
-const greeting = addition("Hey, welcome back ");
-const farewell = addition("Take care ");
 
-console.log(greeting('Kyle'));
-console.log(farewell('Kyle'));
+/* Namespacing Private Functions */
+const bankAccount = (function() {
+    let balance = 0;
+    function transaction(amount) {
+        balance += amount;
+    }
+    return {
+        deposit: function() {
+            transaction(100);
+        },
+        withdraw: function() {
+            transaction(-100);
+        },
+        getBalance: function() {
+            return `Current Balance = $${balance}`;
+        }
+    };
+})();
+bankAccount.deposit();
+bankAccount.deposit();
+bankAccount.deposit();
+console.log(bankAccount.getBalance());
+bankAccount.withdraw();
+bankAccount.withdraw();
+console.log(bankAccount.getBalance());
